@@ -1,0 +1,94 @@
+[
+
+	{
+		category: 'Topsoil / Madeground',
+		h1800: {
+			min: 0,
+			max: 25
+		},
+		h2400: {
+			min: 0,
+			max: 20
+		}
+	}, {
+		category: 'Gravel, sand dry',
+		h1800: {
+			min: 0,
+			max: 25
+		},
+		h2400: {
+			min: 0,
+			max: 20
+		}
+	}, {
+		category: 'Gravel, sand water-saturated',
+		h1800: {
+			min: 65,
+			max: 80
+		},
+		h2400: {
+			min: 55,
+			max: 65
+		}
+	}, {
+		category: 'Clay, loam humid',
+		h1800: {
+			min: 35,
+			max: 50
+		},
+		h2400: {
+			min: 30,
+			max: 40
+		}
+	}, {
+		category: 'Limestone (massive)',
+		h1800: {
+			min: 55,
+			max: 70
+		},
+		h2400: {
+			min: 45,
+			max: 60
+		}
+	}, {
+		category: 'Sandstone',
+		h1800: {
+			min: 65,
+			max: 80
+		},
+		h2400: {
+			min: 55,
+			max: 65
+		}
+	}, {
+		category: 'Acid magmatites (e.g. granite)',
+		h1800: {
+			min: 65,
+			max: 85
+		},
+		h2400: {
+			min: 55,
+			max: 70
+		}
+	}, {
+		category: 'Basic magmatites (e.g. basalt)',
+		h1800: {
+			min: 40,
+			max: 65
+		},
+		h2400: {
+			min: 35,
+			max: 55
+		}
+	}, {
+		category: 'Gneiss',
+		h1800: {
+			min: 70,
+			max: 85
+		},
+		h2400: {
+			min: 60,
+			max: 70
+		}
+	}
+]

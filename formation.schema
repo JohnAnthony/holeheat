@@ -1,0 +1,11 @@
+{
+	category: { $type: 'string' },
+	h1800: {
+		min: { $type: 'number' },
+		max: { $type: 'number' }
+	},
+	h2400: {
+		min: { $type: 'number' },
+		max: { $type: 'number' }
+	}
+}

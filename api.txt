@@ -1,0 +1,24 @@
+/borehole
+	(C) PUT     => Create new borehole entry
+	(R) GET     => List all boreholes (abbreviated)
+
+/borehole/:id
+	(R) GET     => Get borehole data (full)
+	(U) POST    => Update borehole data with new entry
+	(D) DELETE  => Delete borehole entry
+
+/borehole/:id/yield
+	(R) GET     => Get the calculated yield of the borehole
+
+/borehole/search/:north/:east
+	(R) GET     => Get id of the closest borehole
+
+
+/formation
+	(C) PUT     => Create new formation entry
+	(R) GET     => Get all formation data
+
+/formation/:id
+	(R) GET     => Get formation data
+	(U) POST    => Update formation data with new entry
+	(D) DELETE  => Delete formation entry

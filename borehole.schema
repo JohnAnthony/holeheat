@@ -1,0 +1,8 @@
+{
+	east: { $type: 'number' },
+	north: { $type: 'number' },
+	strata: [{
+		formation: { $type: 'ObjectId' },
+		depth: { $type: 'number' }
+	}]
+}
