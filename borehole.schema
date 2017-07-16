@@ -1,6 +1,5 @@
 {
-	east: { $type: 'number' },
-	north: { $type: 'number' },
+	coordinates: { $type: 'Point' },
 	strata: [{
 		formation: { $type: 'ObjectId' },
 		depth: { $type: 'number' }

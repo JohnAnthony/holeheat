@@ -7,8 +7,8 @@
 	(U) POST    => Update borehole data with new entry
 	(D) DELETE  => Delete borehole entry
 
-/borehole/:id/yield
-	(R) GET     => Get the calculated yield of the borehole
+/borehole/:id/yield/:hours
+	(R) GET     => Get the calculated yield for :hours of operation in kWh
 
 /borehole/search/:north/:east
 	(R) GET     => Get id of the closest borehole

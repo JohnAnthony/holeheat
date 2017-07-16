@@ -16,8 +16,7 @@ var Formation = mongoose.model('Formation', mongoose.Schema({
 }));
 
 var Borehole = mongoose.model('Borehole', mongoose.Schema({
-	east: Number,
-	north: Number,
+	coordinates: { type: [Number], index: { type: '2d', sparse: true } },
 	strata: [{
 		formation: String,
 		depth: Number
@@ -36,10 +35,8 @@ app.put('/borehole', TODO);
 
 app.get('/borehole', function(req, res) {
 	Borehole.find(function(err, boreholes) {
-		if (err) {
-			res.status(500);
-			res.send(err);
-		}
+		if (err)
+			return res.status(500).send(err);
 		res.json(boreholes);
 	});
 });
@@ -54,21 +51,15 @@ app.get('/borehole/:id/yield/:length/:hours', function(req, res) {
 	var length = Number(req.params.length);
 	var hours = Number(req.params.hours);
 
-	if ([1800, 2400].indexOf(hours) == -1) {
-		res.status(500);
-		res.send('Invalid hours value');
-	}
+	if ([1800, 2400].indexOf(hours) == -1)
+		return res.status(500).send('Invalid hours value');
 
-	if (length <= 0) {
-		res.status(500);
-		res.send('Invalid wellbore length');
-	}
+	if (length <= 0)
+		return res.status(500).send('Invalid wellbore length');
 
 	Borehole.findOne({ _id: req.params.id }, function(err, b) {
-		if (err) {
-			res.status(500);
-			res.send(err);
-		}
+		if (err)
+			return res.status(500).send(err);
 
 		var yield = 0;
 		var key = 'h' + hours;
@@ -93,16 +84,23 @@ app.get('/borehole/:id/yield/:length/:hours', function(req, res) {
 	});
 });
 
-app.get('/borehole/search/:north/:east', TODO);
+app.get('/borehole/search/:north/:east', function(req, res) {
+	var north = Number(req.params.north);
+	var east = Number(req.params.east);
+
+	Borehole.findOne({ coordinates: {$near: [north, east]}}, function(err, b) {
+		if (err)
+			return res.status(500).send(err);
+		res.json(b);
+	});
+});
 
 app.put('/formation', TODO);
 
 app.get('/formation', function(req, res) {
 	Formation.find(function(err, formations) {
-		if (err) {
-			res.status(500);
-			res.send(err);
-		}
+		if (err)
+			return res.status(500).send(err);
 		res.json(formations);
 	});
 });
