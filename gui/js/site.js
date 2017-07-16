@@ -8,6 +8,7 @@ var Prop = function() {
 };
 
 var MAP;
+var MARKER;
 var POSTCODE = new Prop();
 var DEPTH = new Prop();
 
@@ -23,6 +24,11 @@ var VIEW = function() {
 					MAP = new google.maps.Map(document.getElementById('map'), {
 						center: {lat: 54.55, lng: -5.93},
 						zoom: 6
+					});
+
+					MARKER = new google.maps.Marker({
+						map: MAP,
+						title: 'Closest wellbore data'
 					});
 				}
 			})
@@ -47,6 +53,18 @@ var VIEW = function() {
 			m('.one.columns',
 				m('button.button-primary', {
 					onclick: function() {
+						m.request({
+							url: window.API_LOCATION + '/borehole/search/0/0'
+						})
+						.then(function(result) {
+							var pos = {
+								lat: result.coordinates[0],
+								lng: result.coordinates[1],
+							};
+							MARKER.setPosition(pos);
+							MAP.setCenter(pos);
+							MAP.setZoom(15);
+						});
 					}
 				}, 'SEARCH')
 			)

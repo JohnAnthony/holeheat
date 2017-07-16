@@ -9,6 +9,7 @@
   "author": "John Anthony <john@jo.hnanthony.com>",
   "license": "GPLv3",
   "dependencies": {
+    "cors": "^2.8.4",
     "express": "^4.15.3",
     "mongoose": "^4.11.3",
     "underscore": "^1.8.3"

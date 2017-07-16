@@ -2,6 +2,9 @@ var _ = require('underscore');
 var express = require('express');
 var app = express();
 
+var cors = require('cors');
+app.use(cors());
+
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 var db = mongoose.connect(process.env.MONGODB, {

@@ -8,7 +8,7 @@ app.set('view engine', 'pug');
 
 app.get('/', function(req, res) {
 	res.render('index', {
-		api: process.env.API_LOCATION,
+		api_location: process.env.API_LOCATION,
 		map_key: process.env.MAP_KEY
 	});
 });
