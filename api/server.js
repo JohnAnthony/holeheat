@@ -27,8 +27,7 @@ var Borehole = mongoose.model('Borehole', mongoose.Schema({
 var app = express();
 
 var TODO = function(req, res) {
-	res.status(501);
-	res.send('TODO');
+	return res.status(501).send('TODO');
 };
 
 app.put('/borehole', TODO);
