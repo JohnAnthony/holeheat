@@ -2,7 +2,7 @@
 
 var MAP;
 var MARKER;
-var POSTCODE = 'NR3 2RB';
+var POSTCODE = 'AB12 3CD';
 var DEPTH = '100';
 var COORDINATES;
 var YIELD;
@@ -52,29 +52,41 @@ var VIEW = function() {
 						YIELD = undefined;
 
 						m.request({
-							url: window.API_LOCATION + '/borehole/search/0/0'
+							url: 'http://api.postcodes.io/postcodes/:code',
+							data: {
+								code: POSTCODE
+							}
 						})
-						.then(function(borehole) {
-							var pos = {
-								lat: borehole.coordinates[0],
-								lng: borehole.coordinates[1],
-							};
-
-							COORDINATES = pos.lat + 'N ' + pos.lng + 'E';
-							MARKER.setPosition(pos);
-							MAP.setCenter(pos);
-							MAP.setZoom(15);
-
+						.then(function(data) {
 							m.request({
-								url: window.API_LOCATION + '/borehole/:id/yield/:l/:h',
+								url: window.API_LOCATION + '/borehole/search/:lon/:lat',
 								data: {
-									id: borehole._id,
-									l: DEPTH || 0,
-									h: 2400
+									lon: data.result.longitude,
+									lat: data.result.latitude
 								}
 							})
-							.then(function(yield) {
-								YIELD = yield;
+							.then(function(borehole) {
+								var pos = {
+									lat: borehole.coordinates[0],
+									lng: borehole.coordinates[1],
+								};
+
+								COORDINATES = pos.lat + 'N ' + pos.lng + 'E';
+								MARKER.setPosition(pos);
+								MAP.setCenter(pos);
+								MAP.setZoom(15);
+
+								m.request({
+									url: window.API_LOCATION + '/borehole/:id/yield/:l/:h',
+									data: {
+										id: borehole._id,
+										l: DEPTH || 0,
+										h: 2400
+									}
+								})
+								.then(function(yield) {
+									YIELD = yield;
+								});
 							});
 						});
 					}
