@@ -24,7 +24,7 @@ var VIEW = function() {
 
 					MARKER = new google.maps.Marker({
 						map: MAP,
-						title: 'Closest wellbore data'
+						title: 'Closest borehole data'
 					});
 				}
 			})
@@ -103,13 +103,13 @@ var VIEW = function() {
 			)
 		),
 		m('hr'),
-		m('h3', 'Nearest Wellbore'),
+		m('h3', 'Nearest Borehole'),
 		m('.row',
 			m('.six.columns',
 				m('span', 'Estimated Yield: '),
 				m('span', YIELD || '--'),
 				m('span', ' kWh (\u00A3'),
-				m('span', YIELD ? (YIELD * 0.052).toFixed(2) : '--'),
+				m('span', YIELD ? (YIELD * 0.036).toFixed(2) : '--'),
 				m('span', ')')
 			),
 			m('.six.columns',
