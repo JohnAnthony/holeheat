@@ -1,18 +1,12 @@
 (function() {
 
-var Prop = function() {
-	return {
-		value: "",
-		setValue: function(v) {self.value = v}
-	}
-};
-
 var MAP;
 var MARKER;
 var POSTCODE = 'NR3 2RB';
 var DEPTH = '100';
 var COORDINATES;
 var YIELD;
+var OPERATIONAL_HOURS = [1800, 2400];
 
 var VIEW = function() {
 	return m('.container',
@@ -93,7 +87,9 @@ var VIEW = function() {
 			m('.six.columns',
 				m('span', 'Estimated Yield: '),
 				m('span', YIELD || '--'),
-				m('span', ' kWh')
+				m('span', ' kWh (\u00A3'),
+				m('span', YIELD ? (YIELD * 0.052).toFixed(2) : '--'),
+				m('span', ')')
 			),
 			m('.six.columns',
 				m('span', 'Coordinates: '),
