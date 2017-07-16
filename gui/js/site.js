@@ -3,14 +3,14 @@
 var Prop = function() {
 	return {
 		value: "",
-		setValue: function(v) {state.value = v}
+		setValue: function(v) {self.value = v}
 	}
 };
 
 var MAP;
 var MARKER;
-var POSTCODE = new Prop();
-var DEPTH = new Prop();
+var POSTCODE = 'NR3 2RB';
+var DEPTH = '100';
 var COORDINATES;
 var YIELD;
 
@@ -38,15 +38,15 @@ var VIEW = function() {
 			m('.six.columns',
 				m('label', 'Postcode'),
 				m('input.u-full-width', {
-					value: POSTCODE.value,
-					onchange: m.withAttr('value', POSTCODE.setValue)
+					value: POSTCODE,
+					onchange: m.withAttr('value', function(v) { POSTCODE = v; })
 				})
 			),
 			m('.six.columns',
-				m('label', 'Borehole Depth'),
+				m('label', 'Borehole Depth (m)'),
 				m('input.u-full-width', {
-					value: DEPTH.value,
-					onchange: m.withAttr('value', DEPTH.setValue)
+					value: DEPTH,
+					onchange: m.withAttr('value', function(v) { DEPTH = v; })
 				})
 			)
 		),
@@ -60,23 +60,35 @@ var VIEW = function() {
 						m.request({
 							url: window.API_LOCATION + '/borehole/search/0/0'
 						})
-						.then(function(result) {
+						.then(function(borehole) {
 							var pos = {
-								lat: result.coordinates[0],
-								lng: result.coordinates[1],
+								lat: borehole.coordinates[0],
+								lng: borehole.coordinates[1],
 							};
 
 							COORDINATES = pos.lat + 'N ' + pos.lng + 'E';
 							MARKER.setPosition(pos);
 							MAP.setCenter(pos);
 							MAP.setZoom(15);
+
+							m.request({
+								url: window.API_LOCATION + '/borehole/:id/yield/:l/:h',
+								data: {
+									id: borehole._id,
+									l: DEPTH || 0,
+									h: 2400
+								}
+							})
+							.then(function(yield) {
+								YIELD = yield;
+							});
 						});
 					}
 				}, 'SEARCH')
 			)
 		),
 		m('hr'),
-		m('h3', 'Wellbore information'),
+		m('h3', 'Nearest Wellbore'),
 		m('.row',
 			m('.six.columns',
 				m('span', 'Estimated Yield: '),
