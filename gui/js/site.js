@@ -1,11 +1,21 @@
 (function() {
 
+var Prop = function() {
+	return {
+		value: "",
+		setValue: function(v) {state.value = v}
+	}
+};
+
 var MAP;
+var POSTCODE = new Prop();
+var DEPTH = new Prop();
+
 
 var VIEW = function() {
 	return m('.container',
 		m('.row', 
-			m('h1','BHE Yield Calculator')
+			m('h2.title','BHE Yield Calculator')
 		),
 		m('.row',
 			m('#map', {
@@ -16,6 +26,30 @@ var VIEW = function() {
 					});
 				}
 			})
+		),
+		m('.row',
+			m('.six.columns',
+				m('label', 'Postcode'),
+				m('input.u-full-width', {
+					value: POSTCODE.value,
+					onchange: m.withAttr('value', POSTCODE.setValue)
+				})
+			),
+			m('.six.columns',
+				m('label', 'Borehole Depth'),
+				m('input.u-full-width', {
+					value: DEPTH.value,
+					onchange: m.withAttr('value', DEPTH.setValue)
+				})
+			)
+		),
+		m('.row',
+			m('.one.columns',
+				m('button.button-primary', {
+					onclick: function() {
+					}
+				}, 'SEARCH')
+			)
 		)
 	);
 };
