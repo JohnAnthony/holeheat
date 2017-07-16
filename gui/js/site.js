@@ -11,7 +11,8 @@ var MAP;
 var MARKER;
 var POSTCODE = new Prop();
 var DEPTH = new Prop();
-
+var COORDINATES;
+var YIELD;
 
 var VIEW = function() {
 	return m('.container',
@@ -53,6 +54,9 @@ var VIEW = function() {
 			m('.one.columns',
 				m('button.button-primary', {
 					onclick: function() {
+						COORDINATES = undefined;
+						YIELD = undefined;
+
 						m.request({
 							url: window.API_LOCATION + '/borehole/search/0/0'
 						})
@@ -61,12 +65,27 @@ var VIEW = function() {
 								lat: result.coordinates[0],
 								lng: result.coordinates[1],
 							};
+
+							COORDINATES = pos.lat + 'N ' + pos.lng + 'E';
 							MARKER.setPosition(pos);
 							MAP.setCenter(pos);
 							MAP.setZoom(15);
 						});
 					}
 				}, 'SEARCH')
+			)
+		),
+		m('hr'),
+		m('h3', 'Wellbore information'),
+		m('.row',
+			m('.six.columns',
+				m('span', 'Estimated Yield: '),
+				m('span', YIELD || '--'),
+				m('span', ' kWh')
+			),
+			m('.six.columns',
+				m('span', 'Coordinates: '),
+				m('span', COORDINATES || '--')
 			)
 		)
 	);
