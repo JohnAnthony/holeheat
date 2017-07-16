@@ -4,10 +4,11 @@ head
 	link(href='css/site.css' rel='stylesheet')
 
 	script(src='//unpkg.com/mithril/mithril.js') 
-	script(src='js/site.js') 
+	script(src='//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js') 
 	script(src='https://maps.googleapis.com/maps/api/js?key='+map_key+'') 
 	script.
 		window.API_LOCATION = '#{api_location}'
+	script(src='js/site.js') 
 
 	title Hole Heat Calculator
 

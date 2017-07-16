@@ -2,11 +2,12 @@
 
 var MAP;
 var MARKER;
-var POSTCODE = 'AB12 3CD';
+var POSTCODE = 'CB1 0AA';
 var DEPTH = '100';
 var COORDINATES;
 var YIELD;
 var OPERATIONAL_HOURS = [1800, 2400];
+var UTIL = OPERATIONAL_HOURS[0];
 
 var VIEW = function() {
 	return m('.container',
@@ -28,20 +29,31 @@ var VIEW = function() {
 				}
 			})
 		),
+		m('hr'),
 		m('.row',
-			m('.six.columns',
+			m('.four.columns',
 				m('label', 'Postcode'),
 				m('input.u-full-width', {
 					value: POSTCODE,
 					onchange: m.withAttr('value', function(v) { POSTCODE = v; })
 				})
 			),
-			m('.six.columns',
+			m('.four.columns',
 				m('label', 'Borehole Depth (m)'),
 				m('input.u-full-width', {
 					value: DEPTH,
 					onchange: m.withAttr('value', function(v) { DEPTH = v; })
 				})
+			),
+			m('.four.columns',
+				m('label', 'Yearly Utilisation (h)'),
+				m('select.u-full-width', {
+					value: UTIL,
+					onchange: m.withAttr('value', function(v) { UTIL = v; })
+				},
+				_.map(OPERATIONAL_HOURS, function(e) {
+					return m('option', e);
+				}))
 			)
 		),
 		m('.row',
@@ -81,11 +93,8 @@ var VIEW = function() {
 									data: {
 										id: borehole._id,
 										l: DEPTH || 0,
-										h: 2400
-									}
-								})
-								.then(function(yield) {
-									YIELD = yield;
+										h: UTIL
+								} }) .then(function(yield) { YIELD = yield;
 								});
 							});
 						});
