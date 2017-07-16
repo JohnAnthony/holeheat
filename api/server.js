@@ -1,6 +1,6 @@
 var _ = require('underscore');
 var express = require('express');
-var router = express.Router();
+var app = express();
 
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -24,7 +24,6 @@ var Borehole = mongoose.model('Borehole', mongoose.Schema({
 }));
 
  
-var app = express();
 
 var TODO = function(req, res) {
 	return res.status(501).send('TODO');
