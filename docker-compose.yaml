@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+    holeheat.api:
+        build: ./api
+        environment:
+            MONGODB: mongodb://ja:W123Q321@ds159112.mlab.com:59112/holeheat
+            PORT: 29000
+        ports:
+            - '29000:29000'
+
+    holeheat.gui:
+        build: ./gui
+        links:
+            - holeheat.api
+        environment:
+            API_LOCATION: holeheat.api:29000
+            MAP_KEY: AIzaSyBRRaxl02rDcTjWSRB6TeVy-afugHod5Xs
+            PORT: 29001
+        ports:
+            - '29001:29001'

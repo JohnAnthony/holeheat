@@ -114,7 +114,9 @@ app.delete('/formation/:id', TODO);
 
 
 
-conn.on('error', console.error.bind(console, 'connection error:'));  
+conn.on('error', function(err) {
+	console.error('connection error: ' + err);
+});
 conn.once('open', function() {
 	console.log('Connection open. Starting API interface.');
 	console.log('STARTING SERVER ON PORT ' + process.env.PORT);
